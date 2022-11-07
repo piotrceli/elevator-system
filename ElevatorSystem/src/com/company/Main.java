@@ -2,6 +2,7 @@ package com.company;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -10,6 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Thread thread = null;
         int elevatorsNumber = 8;
         try {
             System.out.println("\nPick number of elevators (range: 1-16):");
@@ -26,11 +28,15 @@ public class Main {
         while (!quit) {
             int action = -1;
             try {
+                Thread.sleep(300);
                 System.out.println("\nPick action: ");
                 action = scanner.nextInt();
                 scanner.nextLine();
             } catch (InputMismatchException ime) {
                 scanner.nextLine();
+            }
+            catch (InterruptedException ie) {
+                ie.printStackTrace();
             }
             switch (action) {
                 case 0:
@@ -58,6 +64,29 @@ public class Main {
                     updateElevatorStatus();
                     break;
 
+                case 6:
+                    elevatorSystem.setAutoSimulated(!elevatorSystem.isAutoSimulated());
+                    if (elevatorSystem.isAutoSimulated()) {
+                        thread = new Thread(() -> {
+                            System.out.println("Auto Simulation ON");
+                            while (!Thread.currentThread().isInterrupted()) {
+                                try {
+                                    elevatorSystem.simulateStep();
+                                    elevatorSystem.viewStatus();
+                                    TimeUnit.SECONDS.sleep(7);
+                                } catch (InterruptedException e) {
+                                    System.out.println("Auto Simulation OFF");
+                                    Thread.currentThread().interrupt();
+                                }
+                            }
+                        });
+                        thread.setDaemon(true);
+                        thread.start();
+                    } else if (thread != null) {
+                        thread.interrupt();
+                    }
+                    break;
+
                 case 9:
                     quit = true;
                     System.out.println("Shutting down");
@@ -79,6 +108,7 @@ public class Main {
         System.out.println("3 - Pick Up Elevator");
         System.out.println("4 - Select Floor");
         System.out.println("5 - Update Elevator's Status");
+        System.out.println("6 - ON/OFF Auto Simulation");
         System.out.println("9 - Shut Down Application");
     }
 

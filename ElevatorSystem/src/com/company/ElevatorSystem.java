@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ElevatorSystem {
 
     private final List<Elevator> elevators = new ArrayList<>();
+    private boolean isAutoSimulated = false;
 
     public ElevatorSystem(int elevatorsNumber) {
         generateElevators(elevatorsNumber);
@@ -131,7 +133,7 @@ public class ElevatorSystem {
     }
 
     private void setDirectionOfElevator(Elevator elevator, int targetFloor) {
-        if (elevator == null){
+        if (elevator == null) {
             return;
         }
         int direction = elevator.getCurrentFloor() > targetFloor ? -1 : 1;
@@ -232,6 +234,14 @@ public class ElevatorSystem {
             }
         }
         return -1;
+    }
+
+    public boolean isAutoSimulated() {
+        return isAutoSimulated;
+    }
+
+    public void setAutoSimulated(boolean autoSimulated) {
+        isAutoSimulated = autoSimulated;
     }
 }
 
