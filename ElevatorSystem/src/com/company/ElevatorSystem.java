@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,15 +32,12 @@ public class ElevatorSystem {
 
     public void viewStatus() {
         System.out.println("==============================================================================================================");
-        for (int i = 0; i < elevators.size(); i++) {
-            System.out.println(elevators.get(i));
-        }
+        elevators.forEach(System.out::println);
         System.out.println("==============================================================================================================");
     }
 
     public void simulateStep() {
-        for (int i = 0; i < elevators.size(); i++) {
-            Elevator elevator = elevators.get(i);
+        for (Elevator elevator : elevators) {
             int direction = elevator.getDirection();
             int currentFloor = elevator.getCurrentFloor();
 
@@ -65,7 +63,6 @@ public class ElevatorSystem {
             if (areTargetFloorsEmpty(elevator)) {
                 elevator.setDirection(0);
             }
-
         }
     }
 
@@ -74,30 +71,17 @@ public class ElevatorSystem {
     }
 
     private boolean areTargetFloorsEmpty(Elevator elevator) {
-        for (int i = 0; i < elevator.getTargetFloors().length; i++) {
-            if (elevator.getTargetFloors()[i] == 1) {
-                return false;
-            }
-        }
-        return true;
+        return Arrays.stream(elevator.getTargetFloors()).noneMatch(floor -> floor == 1);
     }
 
     private boolean isGoingUpwards(Elevator elevator) {
-        for (int i = elevator.getCurrentFloor(); i < elevator.getTargetFloors().length; i++) {
-            if (elevator.getTargetFloors()[i] == 1) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(elevator.getTargetFloors(), elevator.getCurrentFloor(), elevator.getTargetFloors().length)
+                .anyMatch(floor -> floor == 1);
     }
 
     private boolean isGoingDownwards(Elevator elevator) {
-        for (int i = elevator.getCurrentFloor(); i >= 0; i--) {
-            if (elevator.getTargetFloors()[i] == 1) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(elevator.getTargetFloors(), 0, elevator.getCurrentFloor())
+                .anyMatch(floor -> floor == 1);
     }
 
     public void updateElevatorStatus(int elevatorId, int currentFloor, int targetFloor) {
@@ -147,6 +131,9 @@ public class ElevatorSystem {
     }
 
     private void setDirectionOfElevator(Elevator elevator, int targetFloor) {
+        if (elevator == null){
+            return;
+        }
         int direction = elevator.getCurrentFloor() > targetFloor ? -1 : 1;
         elevator.setDirection(direction);
     }
@@ -161,66 +148,69 @@ public class ElevatorSystem {
             return;
         }
 
-        Elevator elevator = null;
+        Elevator elevator;
         int levelDifference = Integer.MAX_VALUE;
         if (direction > 0) {
-            elevator = chooseElevatorWhenGoingUpwards(passengerFloor, elevator, levelDifference);
+            elevator = chooseElevatorWhenGoingUpwards(passengerFloor, levelDifference);
         } else {
-            elevator = chooseElevatorWhenGoingDownwards(passengerFloor, elevator, levelDifference);
+            elevator = chooseElevatorWhenGoingDownwards(passengerFloor, levelDifference);
         }
         if (elevator == null) {
-            elevator = chooseStillElevator(passengerFloor, elevator, levelDifference);
+            elevator = chooseStillElevator(passengerFloor, levelDifference);
         }
         if (elevator == null) {
-            elevator = chooseFromRemainingElevators(passengerFloor, elevator, levelDifference);
+            elevator = chooseFromRemainingElevators(passengerFloor, levelDifference);
         }
         setTargetFloorAndDirection(elevator, passengerFloor);
     }
 
-    private Elevator chooseElevatorWhenGoingUpwards(int passengerFloor, Elevator elevator, int levelDifference) {
-        for (int i = 0; i < elevators.size(); i++) {
-            if (elevators.get(i).getDirection() > 0 &&
-                    elevators.get(i).getCurrentFloor() <= passengerFloor) {
-                if (passengerFloor - elevators.get(i).getCurrentFloor() < levelDifference) {
-                    elevator = elevators.get(i);
-                    levelDifference = passengerFloor - elevators.get(i).getCurrentFloor();
+    private Elevator chooseElevatorWhenGoingUpwards(int passengerFloor, int levelDifference) {
+        Elevator elevator = null;
+        for (Elevator e : elevators) {
+            if (e.getDirection() > 0 &&
+                    e.getCurrentFloor() <= passengerFloor) {
+                if (passengerFloor - e.getCurrentFloor() < levelDifference) {
+                    elevator = e;
+                    levelDifference = passengerFloor - e.getCurrentFloor();
                 }
             }
         }
         return elevator;
     }
 
-    private Elevator chooseElevatorWhenGoingDownwards(int passengerFloor, Elevator elevator, int levelDifference) {
-        for (int i = 0; i < elevators.size(); i++) {
-            if (elevators.get(i).getDirection() < 0 &&
-                    elevators.get(i).getCurrentFloor() >= passengerFloor) {
-                if (elevators.get(i).getCurrentFloor() - passengerFloor < levelDifference) {
-                    elevator = elevators.get(i);
-                    levelDifference = elevators.get(i).getCurrentFloor() - passengerFloor;
+    private Elevator chooseElevatorWhenGoingDownwards(int passengerFloor, int levelDifference) {
+        Elevator elevator = null;
+        for (Elevator e : elevators) {
+            if (e.getDirection() < 0 && e.getCurrentFloor() >= passengerFloor) {
+                if (e.getCurrentFloor() - passengerFloor < levelDifference) {
+                    elevator = e;
+                    levelDifference = e.getCurrentFloor() - passengerFloor;
                 }
             }
         }
         return elevator;
     }
 
-    private Elevator chooseStillElevator(int passengerFloor, Elevator elevator, int levelDifference) {
-        for (int i = 0; i < elevators.size(); i++) {
-            if (elevators.get(i).getDirection() == 0) {
-                if (Math.abs(passengerFloor - elevators.get(i).getCurrentFloor()) < levelDifference) {
-                    elevator = elevators.get(i);
-                    levelDifference = Math.abs(passengerFloor - elevators.get(i).getCurrentFloor());
+    private Elevator chooseStillElevator(int passengerFloor, int levelDifference) {
+        Elevator elevator = null;
+        for (Elevator e : elevators) {
+            if (e.getDirection() == 0) {
+                if (Math.abs(passengerFloor - e.getCurrentFloor()) < levelDifference) {
+                    elevator = e;
+                    levelDifference = Math.abs(passengerFloor - e.getCurrentFloor());
                 }
             }
         }
         return elevator;
     }
 
-    private Elevator chooseFromRemainingElevators(int passengerFloor, Elevator elevator, int levelDifference) {
-        for (int i = 0; i < elevators.size(); i++) {
-            if (elevators.get(i).getDirection() != 0) {
-                if (Math.abs(passengerFloor - pickLastFloorInSpecificDirection(elevators.get(i))) < levelDifference) {
-                    elevator = elevators.get(i);
-                    levelDifference = Math.abs(passengerFloor - pickLastFloorInSpecificDirection(elevators.get(i)));
+    private Elevator chooseFromRemainingElevators(int passengerFloor, int levelDifference) {
+        Elevator elevator = null;
+        for (Elevator e : elevators) {
+            if (e.getDirection() != 0) {
+                if (Math.abs(passengerFloor - pickLastFloorInSpecificDirection(e)) < levelDifference) {
+                    elevator = e;
+                    levelDifference = Math.abs(passengerFloor - pickLastFloorInSpecificDirection(e));
                 }
             }
         }
