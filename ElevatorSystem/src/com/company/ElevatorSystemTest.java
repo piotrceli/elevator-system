@@ -315,14 +315,14 @@ class ElevatorSystemTest {
     }
 
     @Test
-    void shouldPickUpClosestElevator_whenElevatorWithSameDirectionExists_givenDirectionIsUpwards() {
+    void shouldPickUpPassengerByClosestElevator_whenElevatorWithSameDirectionExists_givenDirectionIsUpwards() {
 
         // given
         int direction = 1;
         int passengerFloor = 7;
 
         // when
-        elevatorSystem.pickUpElevator(passengerFloor, direction);
+        elevatorSystem.pickUpPassenger(passengerFloor, direction);
 
         // then
         assertEquals(elevator1.getTargetFloors()[7], 0);
@@ -333,14 +333,14 @@ class ElevatorSystemTest {
     }
 
     @Test
-    void shouldPickUpClosestElevator_whenElevatorWithSameDirectionExists_givenDirectionIsDownwards() {
+    void shouldPickUpPassengerByClosestElevator_whenElevatorWithSameDirectionExists_givenDirectionIsDownwards() {
 
         // given
         int direction = -1;
         int passengerFloor = 5;
 
         // when
-        elevatorSystem.pickUpElevator(passengerFloor, direction);
+        elevatorSystem.pickUpPassenger(passengerFloor, direction);
 
         // then
         assertEquals(elevator1.getTargetFloors()[5], 0);
@@ -351,7 +351,7 @@ class ElevatorSystemTest {
     }
 
     @Test
-    void shouldPickUpClosestElevator_whenAllElevatorsAreStill_givenDirectionIsUpwards() {
+    void shouldPickUpPassengerByClosestElevator_whenAllElevatorsAreStill_givenDirectionIsUpwards() {
 
         // given
         int direction = 1;
@@ -368,7 +368,7 @@ class ElevatorSystemTest {
         elevator5.getTargetFloors()[8] = 0;
 
         // when
-        elevatorSystem.pickUpElevator(passengerFloor, direction);
+        elevatorSystem.pickUpPassenger(passengerFloor, direction);
 
         // then
         assertEquals(elevator1.getTargetFloors()[8], 0);
@@ -379,7 +379,7 @@ class ElevatorSystemTest {
     }
 
     @Test
-    void shouldPickUpClosestElevator_whenAllElevatorsAreStill_givenDirectionIsDownwards() {
+    void shouldPickUpPassengerByClosestElevator_whenAllElevatorsAreStill_givenDirectionIsDownwards() {
 
         // given
         int direction = -1;
@@ -396,7 +396,7 @@ class ElevatorSystemTest {
         elevator5.getTargetFloors()[4] = 0;
 
         // when
-        elevatorSystem.pickUpElevator(passengerFloor, direction);
+        elevatorSystem.pickUpPassenger(passengerFloor, direction);
 
         // then
         assertEquals(elevator1.getTargetFloors()[4], 0);
@@ -407,7 +407,7 @@ class ElevatorSystemTest {
     }
 
     @Test
-    void shouldPickUpStillElevator_whenElevatorsGoingInSameDirectionAlreadyPassedPassengerFloor_givenDirectionIsUpwards() {
+    void shouldPickUpPassengerByStillElevator_whenElevatorsGoingInSameDirectionAlreadyPassedPassengerFloor_givenDirectionIsUpwards() {
 
         // given
         int direction = 1;
@@ -417,14 +417,14 @@ class ElevatorSystemTest {
         elevator3.getTargetFloors()[3] = 0;
 
         // when
-        elevatorSystem.pickUpElevator(passengerFloor, direction);
+        elevatorSystem.pickUpPassenger(passengerFloor, direction);
 
         // then
         assertEquals(elevator3.getTargetFloors()[3], 1);
     }
 
     @Test
-    void shouldPickUpStillElevator_whenElevatorsGoingInSameDirectionAlreadyPassedPassengerFloor_givenDirectionIsDownwards() {
+    void shouldPickUpPassengerByStillElevator_whenElevatorsGoingInSameDirectionAlreadyPassedPassengerFloor_givenDirectionIsDownwards() {
 
         // given
         int direction = -1;
@@ -434,14 +434,14 @@ class ElevatorSystemTest {
         elevator3.getTargetFloors()[8] = 0;
 
         // when
-        elevatorSystem.pickUpElevator(passengerFloor, direction);
+        elevatorSystem.pickUpPassenger(passengerFloor, direction);
 
         // then
         assertEquals(elevator3.getTargetFloors()[8], 1);
     }
 
     @Test
-    void shouldPickUpElevatorWithSmallestLevelDifferenceWithLastTargetFloorInCurrentDirection_givenDirectionIsUpwards() {
+    void shouldPickUpPassengerByElevatorWithSmallestLevelDifferenceWithLastTargetFloorInCurrentDirection_givenDirectionIsUpwards() {
 
         // given
         int direction = 1;
@@ -464,14 +464,14 @@ class ElevatorSystemTest {
         elevator5.getTargetFloors()[6] = 0;
 
         // when
-        elevatorSystem.pickUpElevator(passengerFloor, direction);
+        elevatorSystem.pickUpPassenger(passengerFloor, direction);
 
         // then
         assertEquals(elevator1.getTargetFloors()[6], 1);
     }
 
     @Test
-    void shouldPickUpElevatorWithSmallestLevelDifferenceWithLastTargetFloorInCurrentDirection_givenDirectionIsDownwards() {
+    void shouldPickUpPassengerByElevatorWithSmallestLevelDifferenceWithLastTargetFloorInCurrentDirection_givenDirectionIsDownwards() {
 
         // given
         int direction = -1;
@@ -495,7 +495,7 @@ class ElevatorSystemTest {
         elevator5.getTargetFloors()[6] = 0;
 
         // when
-        elevatorSystem.pickUpElevator(passengerFloor, direction);
+        elevatorSystem.pickUpPassenger(passengerFloor, direction);
 
         // then
         assertEquals(elevator2.getTargetFloors()[6], 1);

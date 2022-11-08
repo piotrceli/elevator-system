@@ -105,7 +105,7 @@ public class Main {
         System.out.println("0 - Show Menu");
         System.out.println("1 - View Elevator System's Status");
         System.out.println("2 - Simulate Step and Show Updated Status");
-        System.out.println("3 - Pick Up Elevator");
+        System.out.println("3 - Pick Up Passenger");
         System.out.println("4 - Select Floor");
         System.out.println("5 - Update Elevator's Status");
         System.out.println("6 - ON/OFF Auto Simulation");
@@ -125,7 +125,7 @@ public class Main {
         int passengerFloor = handleInputAndException();
         System.out.println("Enter driving direction: ");
         int direction = handleInputAndException();
-        elevatorSystem.pickUpElevator(passengerFloor, direction);
+        elevatorSystem.pickUpPassenger(passengerFloor, direction);
     }
 
     private static void updateElevatorStatus() {

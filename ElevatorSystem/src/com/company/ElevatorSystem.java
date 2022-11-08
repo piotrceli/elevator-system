@@ -139,7 +139,7 @@ public class ElevatorSystem {
         elevator.setDirection(direction);
     }
 
-    public void pickUpElevator(int passengerFloor, int direction) {
+    public void pickUpPassenger(int passengerFloor, int direction) {
         if (passengerFloor > 10 || passengerFloor < 0) {
             System.out.println("Passenger must be on the floor ranging from 0 to 10.");
             return;
