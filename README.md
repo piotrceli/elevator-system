@@ -1,5 +1,5 @@
 # Elevator System
-Elevator System is a elevators simulator project.
+Elevator System is an elevators' simulator project.
 
 ## Used Technologies: 
 * Java 
@@ -14,13 +14,13 @@ Elevator System is a elevators simulator project.
 The system is used to service up to 16 elevators. 
 A building has floors ranging from 0 to 10.
 Each elevator has the floors presented by an int[] array - targetFloors.
-If the floor is one of the targets corresponding array's element obtains value of 1.
+If the floor is one of the targets, corresponding array's element obtains value of 1.
 Each elevator may have several selected target floors at the same time.
-After arriving at target floor (targetFloors[i] = 1), the elevator stops on this floor for one simulation step (simulateStep()). It is shown with a field called isStopped.
+After arriving at the target floor (targetFloors[i] = 1), the elevator stops on this floor for one simulation step (simulateStep()). It is shown with a field called isStopped.
 Current elevator's direction is presented by a field direction:
 * positive number - elevator is going upwards
 * negative number - elevator is going downwards
-* 0 - elevator stays in place and does not have any target floors
+* 0 - elevator stays in the place and does not have any target floors
 
 ### 2. Available functionalities
 * #### viewStatus() - Prints status of elevators in the form below.
@@ -53,7 +53,7 @@ In this case, the elevator whose last target floor for the current direction is 
 Option to ON/OFF an automatic simulation. The simulation makes simulation steps every 7 seconds.
 The simulation does not block other functionalities.
 
-### 3. Using the simulator
+### 3. How to use the simulator
 Run the application by main method in Main class.
 User's interaction is performed with use of Scanner class.
 The console prints options from the menu and gives information about the next available steps.
