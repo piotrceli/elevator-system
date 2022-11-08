@@ -141,7 +141,7 @@ public class ElevatorSystem {
 
     public void pickUpElevator(int passengerFloor, int direction) {
         if (passengerFloor > 10 || passengerFloor < 0) {
-            System.out.println("Passenger must be on floor ranging from 0 to 10.");
+            System.out.println("Passenger must be on the floor ranging from 0 to 10.");
             return;
         }
         if (direction == 0) {
