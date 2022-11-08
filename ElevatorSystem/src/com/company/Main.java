@@ -124,7 +124,7 @@ public class Main {
         System.out.println("Enter passenger's floor: ");
         int passengerFloor = handleInputAndException();
         System.out.println("Enter driving direction: ");
-        int direction = scanner.nextInt();
+        int direction = handleInputAndException();
         elevatorSystem.pickUpElevator(passengerFloor, direction);
     }
 
