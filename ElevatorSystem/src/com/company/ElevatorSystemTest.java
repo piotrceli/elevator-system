@@ -55,7 +55,7 @@ class ElevatorSystemTest {
     }
 
     @Test
-    void shouldUpdateElevatorStatus_whenCurrentFloorDiffersTargetFloor() {
+    void shouldUpdateElevatorStatus_whenCurrentFloorDiffersFromTargetFloor() {
 
         // given
         int elevatorId = 1;
@@ -185,7 +185,7 @@ class ElevatorSystemTest {
     }
 
     @Test
-    void shouldSimulateStep_whenElevatorIsGoingInSpecificDirection() {
+    void shouldSimulateStep_whenElevatorsAreGoingInSpecificDirection() {
 
         // when
         elevatorSystem.simulateStep();
