@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ElevatorSystem {
+public class ElevatorSystem implements ElevatorSimulator {
 
     private final List<Elevator> elevators = new ArrayList<>();
     private boolean isAutoSimulated = false;
@@ -31,12 +31,14 @@ public class ElevatorSystem {
         }
     }
 
+    @Override
     public void viewStatus() {
         System.out.println("==============================================================================================================");
         elevators.forEach(System.out::println);
         System.out.println("==============================================================================================================");
     }
 
+    @Override
     public void simulateStep() {
         for (Elevator elevator : elevators) {
             int direction = elevator.getDirection();
@@ -85,6 +87,7 @@ public class ElevatorSystem {
                 .anyMatch(floor -> floor == 1);
     }
 
+    @Override
     public void updateElevatorStatus(int elevatorId, int currentFloor, int targetFloor) {
         if (currentFloor > 10 || currentFloor < 0) {
             System.out.println("Current floor must be between 0 and 10.");
@@ -109,6 +112,7 @@ public class ElevatorSystem {
         }
     }
 
+    @Override
     public void selectFloor(int elevatorId, int targetFloor) {
         if (targetFloor > 10 || targetFloor < 0) {
             System.out.println("Target floor must be between 0 and 10.");
@@ -139,6 +143,7 @@ public class ElevatorSystem {
         elevator.setDirection(direction);
     }
 
+    @Override
     public void pickUpPassenger(int passengerFloor, int direction) {
         if (passengerFloor > 10 || passengerFloor < 0) {
             System.out.println("Passenger must be on the floor ranging from 0 to 10.");
