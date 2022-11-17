@@ -5,16 +5,16 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ElevatorSystem implements ElevatorSimulator {
+public class ElevatorSystem implements com.company.ElevatorSimulator {
 
-    private final List<Elevator> elevators = new ArrayList<>();
+    private final List<com.company.Elevator> elevators = new ArrayList<>();
     private boolean isAutoSimulated = false;
 
     public ElevatorSystem(int elevatorsNumber) {
         generateElevators(elevatorsNumber);
     }
 
-    public List<Elevator> getElevators() {
+    public List<com.company.Elevator> getElevators() {
         return Collections.unmodifiableList(elevators);
     }
 
@@ -40,7 +40,7 @@ public class ElevatorSystem implements ElevatorSimulator {
 
     @Override
     public void simulateStep() {
-        for (Elevator elevator : elevators) {
+        for (com.company.Elevator elevator : elevators) {
             int direction = elevator.getDirection();
             int currentFloor = elevator.getCurrentFloor();
 
@@ -69,20 +69,20 @@ public class ElevatorSystem implements ElevatorSimulator {
         }
     }
 
-    private boolean areCurrentFloorAndTargetFloorEquals(Elevator elevator) {
+    private boolean areCurrentFloorAndTargetFloorEquals(com.company.Elevator elevator) {
         return elevator.getTargetFloors()[elevator.getCurrentFloor()] == 1;
     }
 
-    private boolean areTargetFloorsEmpty(Elevator elevator) {
+    private boolean areTargetFloorsEmpty(com.company.Elevator elevator) {
         return Arrays.stream(elevator.getTargetFloors()).noneMatch(floor -> floor == 1);
     }
 
-    private boolean isGoingUpwards(Elevator elevator) {
+    private boolean isGoingUpwards(com.company.Elevator elevator) {
         return Arrays.stream(elevator.getTargetFloors(), elevator.getCurrentFloor(), elevator.getTargetFloors().length)
                 .anyMatch(floor -> floor == 1);
     }
 
-    private boolean isGoingDownwards(Elevator elevator) {
+    private boolean isGoingDownwards(com.company.Elevator elevator) {
         return Arrays.stream(elevator.getTargetFloors(), 0, elevator.getCurrentFloor())
                 .anyMatch(floor -> floor == 1);
     }
@@ -101,7 +101,7 @@ public class ElevatorSystem implements ElevatorSimulator {
             System.out.println("Incorrect elevator's id. Pick elevator's id ranging from 1 to " + elevators.size());
             return;
         }
-        Elevator elevator = elevators.get(elevatorId - 1);
+        com.company.Elevator elevator = elevators.get(elevatorId - 1);
         elevator.setCurrentFloor(currentFloor);
         elevator.setTargetFloors(new int[11]);
         if (elevator.getCurrentFloor() == targetFloor) {
@@ -122,11 +122,11 @@ public class ElevatorSystem implements ElevatorSimulator {
             System.out.println("Incorrect elevator's id. Pick elevator's id ranging from 1 to " + elevators.size());
             return;
         }
-        Elevator elevator = elevators.get(elevatorId - 1);
+        com.company.Elevator elevator = elevators.get(elevatorId - 1);
         setTargetFloorAndDirection(elevator, targetFloor);
     }
 
-    private void setTargetFloorAndDirection(Elevator elevator, int targetFloor) {
+    private void setTargetFloorAndDirection(com.company.Elevator elevator, int targetFloor) {
         if (elevator.getCurrentFloor() != targetFloor) {
             elevator.getTargetFloors()[targetFloor] = 1;
             if (elevator.getDirection() == 0) {
@@ -135,7 +135,7 @@ public class ElevatorSystem implements ElevatorSimulator {
         }
     }
 
-    private void setDirectionOfElevator(Elevator elevator, int targetFloor) {
+    private void setDirectionOfElevator(com.company.Elevator elevator, int targetFloor) {
         if (elevator == null) {
             return;
         }
@@ -154,7 +154,7 @@ public class ElevatorSystem implements ElevatorSimulator {
             return;
         }
 
-        Elevator elevator;
+        com.company.Elevator elevator;
         int levelDifference = Integer.MAX_VALUE;
         if (direction > 0) {
             elevator = chooseElevatorWhenGoingUpwards(passengerFloor, levelDifference);
@@ -170,9 +170,9 @@ public class ElevatorSystem implements ElevatorSimulator {
         setTargetFloorAndDirection(elevator, passengerFloor);
     }
 
-    private Elevator chooseElevatorWhenGoingUpwards(int passengerFloor, int levelDifference) {
-        Elevator elevator = null;
-        for (Elevator e : elevators) {
+    private com.company.Elevator chooseElevatorWhenGoingUpwards(int passengerFloor, int levelDifference) {
+        com.company.Elevator elevator = null;
+        for (com.company.Elevator e : elevators) {
             if (e.getDirection() > 0 &&
                     e.getCurrentFloor() <= passengerFloor) {
                 if (passengerFloor - e.getCurrentFloor() < levelDifference) {
@@ -184,9 +184,9 @@ public class ElevatorSystem implements ElevatorSimulator {
         return elevator;
     }
 
-    private Elevator chooseElevatorWhenGoingDownwards(int passengerFloor, int levelDifference) {
-        Elevator elevator = null;
-        for (Elevator e : elevators) {
+    private com.company.Elevator chooseElevatorWhenGoingDownwards(int passengerFloor, int levelDifference) {
+        com.company.Elevator elevator = null;
+        for (com.company.Elevator e : elevators) {
             if (e.getDirection() < 0 && e.getCurrentFloor() >= passengerFloor) {
                 if (e.getCurrentFloor() - passengerFloor < levelDifference) {
                     elevator = e;
@@ -197,9 +197,9 @@ public class ElevatorSystem implements ElevatorSimulator {
         return elevator;
     }
 
-    private Elevator chooseStillElevator(int passengerFloor, int levelDifference) {
-        Elevator elevator = null;
-        for (Elevator e : elevators) {
+    private com.company.Elevator chooseStillElevator(int passengerFloor, int levelDifference) {
+        com.company.Elevator elevator = null;
+        for (com.company.Elevator e : elevators) {
             if (e.getDirection() == 0) {
                 if (Math.abs(passengerFloor - e.getCurrentFloor()) < levelDifference) {
                     elevator = e;
@@ -210,9 +210,9 @@ public class ElevatorSystem implements ElevatorSimulator {
         return elevator;
     }
 
-    private Elevator chooseFromRemainingElevators(int passengerFloor, int levelDifference) {
-        Elevator elevator = null;
-        for (Elevator e : elevators) {
+    private com.company.Elevator chooseFromRemainingElevators(int passengerFloor, int levelDifference) {
+        com.company.Elevator elevator = null;
+        for (com.company.Elevator e : elevators) {
             if (e.getDirection() != 0) {
                 if (Math.abs(passengerFloor - pickLastFloorInSpecificDirection(e)) < levelDifference) {
                     elevator = e;
@@ -223,7 +223,7 @@ public class ElevatorSystem implements ElevatorSimulator {
         return elevator;
     }
 
-    private int pickLastFloorInSpecificDirection(Elevator elevator) {
+    private int pickLastFloorInSpecificDirection(com.company.Elevator elevator) {
         if (elevator.getDirection() < 0) {
             for (int i = 0; i < elevator.getTargetFloors().length; i++) {
                 if (elevator.getTargetFloors()[i] == 1) {
