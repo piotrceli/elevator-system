@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Arrays;
 
-final public class Elevator {
+public abstract class Elevator {
 
     private final int id;
     private int currentFloor;

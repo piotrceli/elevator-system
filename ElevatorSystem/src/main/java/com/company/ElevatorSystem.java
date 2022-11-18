@@ -9,6 +9,7 @@ public class ElevatorSystem implements ElevatorSimulator {
 
     private final List<Elevator> elevators = new ArrayList<>();
     private boolean isAutoSimulated = false;
+    private final ElevatorFactory elevatorFactory = new ElevatorFactory();
 
     public ElevatorSystem(int elevatorsNumber) {
         generateElevators(elevatorsNumber);
@@ -27,7 +28,7 @@ public class ElevatorSystem implements ElevatorSimulator {
             elevatorsNumber = 1;
         }
         for (int i = 1; i <= elevatorsNumber; i++) {
-            elevators.add(new Elevator(i));
+            elevators.add(elevatorFactory.getElevator("ElevatorImpl", i));
         }
     }
 
