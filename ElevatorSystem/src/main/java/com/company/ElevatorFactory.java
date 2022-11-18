@@ -4,12 +4,9 @@ import java.util.Objects;
 
 public class ElevatorFactory {
 
-    public Elevator getElevator(String elevatorName, int elevatorId){
+    public Elevator getElevator(String elevatorName, int elevatorId) {
 
-        if (Objects.equals(elevatorName, null)){
-          return null;
-        }
-        if (elevatorName.equals("ElevatorImpl")){
+        if (Objects.equals("ElevatorImpl", elevatorName)) {
             return new ElevatorImpl(elevatorId);
         }
         return null;
