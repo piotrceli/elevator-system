@@ -1,5 +1,8 @@
 package com.company;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,6 +11,9 @@ import java.util.List;
 public class ElevatorSystem implements ElevatorSimulator {
 
     private final List<Elevator> elevators = new ArrayList<>();
+
+    @Getter
+    @Setter
     private boolean isAutoSimulated = false;
     private final ElevatorFactory elevatorFactory = new ElevatorFactory();
 
@@ -239,14 +245,6 @@ public class ElevatorSystem implements ElevatorSimulator {
             }
         }
         return -1;
-    }
-
-    public boolean isAutoSimulated() {
-        return isAutoSimulated;
-    }
-
-    public void setAutoSimulated(boolean autoSimulated) {
-        isAutoSimulated = autoSimulated;
     }
 }
 

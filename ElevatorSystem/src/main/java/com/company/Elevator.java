@@ -1,7 +1,12 @@
 package com.company;
 
-import java.util.Arrays;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
 public abstract class Elevator {
 
     private final int id;
@@ -16,48 +21,5 @@ public abstract class Elevator {
         this.targetFloors = new int[11];
         this.direction = 0;
         this.isStopped = false;
-    }
-
-    public int getCurrentFloor() {
-        return currentFloor;
-    }
-
-    public void setCurrentFloor(int currentFloor) {
-        this.currentFloor = currentFloor;
-    }
-
-    public int[] getTargetFloors() {
-        return targetFloors;
-    }
-
-    public void setTargetFloors(int[] targetFloors) {
-        this.targetFloors = targetFloors;
-    }
-
-    public int getDirection() {
-        return direction;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
-
-    public boolean isStopped() {
-        return isStopped;
-    }
-
-    public void setStopped(boolean isStopped) {
-        this.isStopped = isStopped;
-    }
-
-    @Override
-    public String toString() {
-        return "Elevator{" +
-                "id=" + id +
-                ", currentFloor=" + currentFloor +
-                ", targetFloors=" + Arrays.toString(targetFloors) +
-                ", direction=" + direction +
-                ", isStopped=" + isStopped +
-                '}';
     }
 }

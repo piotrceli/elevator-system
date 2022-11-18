@@ -4,6 +4,7 @@ Elevator System is an elevators' simulator project.
 ## Used Technologies: 
 * Java 
 * JUnit
+* Lombok
 
 ## Contents:
 1. General assumptions
@@ -24,15 +25,15 @@ Current elevator's direction is presented by a field direction:
 
 ### 2. Available functionalities
 * #### viewStatus() - Prints status of elevators in the form below.
-Elevator{id=1, currentFloor=5, targetFloors=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], direction=0, isStopped=true}
+Elevator(id=1, currentFloor=5, targetFloors=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], direction=0, isStopped=true)
 
-Elevator{id=2, currentFloor=4, targetFloors=[0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1], direction=1, isStopped=false}
+Elevator(id=2, currentFloor=4, targetFloors=[0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1], direction=1, isStopped=false)
 
-Elevator{id=3, currentFloor=8, targetFloors=[0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1], direction=-1, isStopped=false}
+Elevator(id=3, currentFloor=8, targetFloors=[0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1], direction=-1, isStopped=false)
 
-Elevator{id=4, currentFloor=5, targetFloors=[1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0], direction=1, isStopped=false}
+Elevator(id=4, currentFloor=5, targetFloors=[1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0], direction=1, isStopped=false)
 
-Elevator{id=5, currentFloor=4, targetFloors=[1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0], direction=-1, isStopped=true}
+Elevator(id=5, currentFloor=4, targetFloors=[1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0], direction=-1, isStopped=true)
 
 * #### simulateStep() - Makes one simulation step.
 The elevators are going in the right direction and are stopping on the target floors for one simulation step.
